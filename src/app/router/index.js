@@ -26,10 +26,20 @@ const router = new VueRouter({
       path: "/posts/:id/edit",
       component: EditItem,
       props: true,
+      beforeEnter: (to, from, next) => {
+        const token = localStorage.getItem("token");
+        if (!token) next("/login");
+        else next();
+      },
     },
     {
       path: "/new",
       component: NewItem,
+      beforeEnter: (to, from, next) => {
+        const token = localStorage.getItem("token");
+        if (!token) next("/login");
+        else next();
+      },
     },
     {
       path: "/login",

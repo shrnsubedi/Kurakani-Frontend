@@ -2,7 +2,11 @@
   <nav class="navbar is-dark">
     <div class="navbar-brand">
       <router-link to="/" class="navbar-item">KuraKani</router-link>
-      <div class="navbar-burger burger" data-target>
+      <div
+        class="navbar-burger burger"
+        onclick="document.querySelector('.navbar-menu').classList.toggle('is-active');"
+        data-target
+      >
         <span></span>
         <span></span>
         <span></span>

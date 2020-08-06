@@ -96,6 +96,7 @@ const getters = {
   token: (state) => state.token,
   loading: (state) => state.loading,
   userId: (state) => state.userId,
+  isAuthenticated: (state) => !!state.token,
 };
 
 const loginModule = {
