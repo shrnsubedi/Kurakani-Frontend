@@ -30,10 +30,7 @@ const actions = {
     commit("LOGIN_PENDING");
     return (
       axios
-        .post(
-          "https://floating-atoll-08442.herokuapp.com/api/v1/rest-auth/login/",
-          credentials
-        )
+        .post("http://127.0.0.1:8000/api/v1/rest-auth/login/", credentials)
         .then((response) => {
           localStorage.setItem("token", response.data.key);
           commit("SET_TOKEN", response.data.key);
@@ -61,7 +58,7 @@ const actions = {
     return (
       axios
         .post(
-          "https://floating-atoll-08442.herokuapp.com/api/v1/rest-auth/registration/",
+          "http://127.0.0.1:8000/api/v1/rest-auth/registration/",
           credentials
         )
         .then((response) => {
@@ -78,7 +75,7 @@ const actions = {
   getUserID({ commit }) {
     return (
       axios
-        .get("https://floating-atoll-08442.herokuapp.com/api/v1/getuser", {
+        .get("http://127.0.0.1:8000/api/v1/getuser", {
           params: {
             token: localStorage.getItem("token"),
           },

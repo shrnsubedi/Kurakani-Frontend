@@ -4,7 +4,9 @@
       <router-link to="/" class="navbar-item">KuraKani</router-link>
       <div
         class="navbar-burger burger"
-        onclick="document.querySelector('.navbar-menu').classList.toggle('is-active');"
+        onclick="document.querySelector('.navbar-menu').classList.toggle('is-active');
+        document.querySelector('.navbar-burger').classList.toggle('is-active');
+        "
         data-target
       >
         <span></span>

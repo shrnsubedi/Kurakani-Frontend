@@ -1,6 +1,7 @@
 import axios from "axios";
 const state = {
   posts: [],
+  comments: [],
 };
 
 const mutations = {
@@ -10,12 +11,15 @@ const mutations = {
   ADD_POST(state, payload) {
     state.posts.push(payload);
   },
+  UPDATE_COMMENTS(state, payload) {
+    state.comments = payload;
+  },
 };
 
 const actions = {
   getPosts({ commit }) {
     axios
-      .get("https://floating-atoll-08442.herokuapp.com/api/v1/")
+      .get("http://127.0.0.1:8000/api/v1/")
       .then((response) => {
         commit("UPDATE_POSTS", response.data);
       })
@@ -24,10 +28,17 @@ const actions = {
         console.log(err);
       });
   },
+  getComments({ commit }, postId) {
+    axios
+      .get(`http://127.0.0.1:8000/api/v1/${postId}/comments/`)
+      .then((response) => {
+        commit("UPDATE_COMMENTS", response.data);
+      });
+  },
   deletePost({ commit, dispatch }, postId) {
     const token = localStorage.getItem("token");
     axios
-      .delete(`https://floating-atoll-08442.herokuapp.com/api/v1/${postId}/`, {
+      .delete(`http://127.0.0.1:8000/api/v1/${postId}/`, {
         headers: {
           Authorization: `Token ${token}`,
         },
@@ -40,9 +51,10 @@ const actions = {
     const post = newPost;
     const token = localStorage.getItem("token");
     axios
-      .post(`https://floating-atoll-08442.herokuapp.com/api/v1/`, post, {
+      .post(`http://127.0.0.1:8000/api/v1/`, post, {
         headers: {
           Authorization: `Token ${token}`,
+          "Content-Type": "multipart/form-data",
         },
       })
       .then((response) => {
@@ -56,34 +68,28 @@ const actions = {
     const id = newPost.id;
     delete newPost.id;
     axios
-      .put(
-        `https://floating-atoll-08442.herokuapp.com/api/v1/${id}/`,
-        newPost,
-        {
-          headers: {
-            Authorization: `Token ${token}`,
-          },
-        }
-      )
+      .put(`http://127.0.0.1:8000/api/v1/${id}/`, newPost, {
+        headers: {
+          Authorization: `Token ${token}`,
+        },
+      })
       .then((response) => {
         dispatch("getPosts");
       });
   },
   upvotePost({ commit }, post) {
-    post.votes++;
     const token = localStorage.getItem("token");
     axios
-      .put(
-        `https://floating-atoll-08442.herokuapp.com/api/v1/${post.id}/`,
-        post,
-        {
-          headers: {
-            Authorization: `Token ${token}`,
-          },
-        }
-      )
+      .get(`http://127.0.0.1:8000/api/v1/upvote/`, {
+        headers: {
+          Authorization: `Token ${token}`,
+        },
+        params: {
+          postId: post.id,
+        },
+      })
       .then((response) => {
-        //console.log(response);
+        post.votes++;
       });
   },
 };
@@ -93,6 +99,7 @@ const getters = {
   postFromId: (state) => (id) => {
     return state.posts.find((post) => post.id === id);
   },
+  comments: (state) => state.comments,
 };
 
 const postModule = {

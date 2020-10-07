@@ -4,39 +4,25 @@
     <form @submit="submitForm" class="ui form">
       <div class="field">
         <p class="control has-icons-left has-icons-right">
-          <input
-            v-model="input.username"
-            class="input"
-            placeholder="Username"
-          />
+          <input v-model="input.username" class="input" placeholder="Username" />
         </p>
-        <div class="error" v-if="!$v.input.username.required && submitStatus">
-          Username is required
-        </div>
+        <div class="error" v-if="!$v.input.username.required && submitStatus">Username is required</div>
       </div>
       <div class="field">
         <p class="control has-icons-left has-icons-right">
           <input v-model="input.email" class="input" placeholder="Email" />
         </p>
-        <div class="error" v-if="!$v.input.email.required && submitStatus">
-          Email is required
-        </div>
-        <div class="error" v-if="!$v.input.email.email && submitStatus">
-          Incorrect Email format
-        </div>
+        <div class="error" v-if="!$v.input.email.required && submitStatus">Email is required</div>
+        <div class="error" v-if="!$v.input.email.email && submitStatus">Incorrect Email format</div>
       </div>
       <div class="field">
         <p class="control has-icons-left">
-          <input
-            v-model="input.password1"
-            class="input"
-            type="password"
-            placeholder="Password"
-          />
+          <input v-model="input.password1" class="input" type="password" placeholder="Password" />
         </p>
-        <div class="error" v-if="!$v.input.password1.required && submitStatus">
-          Password field is required
-        </div>
+        <div
+          class="error"
+          v-if="!$v.input.password1.required && submitStatus"
+        >Password field is required</div>
         <div class="error" v-if="!$v.input.password1.minLength && submitStatus">
           Password must be minimum of 8 characters and also contain numeric
           values
@@ -51,19 +37,13 @@
             placeholder="Retype Password"
           />
         </p>
-        <div class="error" v-if="!$v.input.password2.required && submitStatus">
-          Retype the Password
-        </div>
-        <div class="error" v-if="!$v.input.password2.sameAs && submitStatus">
-          Passwords must match
-        </div>
+        <div class="error" v-if="!$v.input.password2.required && submitStatus">Retype the Password</div>
+        <div class="error" v-if="$v.input.password2.sameAs && submitStatus">Passwords must match</div>
       </div>
 
       <div class="field">
         <p class="control">
-          <button :class="{ 'is-loading': loading }" class="button is-success">
-            Sign Up
-          </button>
+          <button :class="{ 'is-loading': loading }" class="button is-success">Sign Up</button>
         </p>
       </div>
     </form>

@@ -10,9 +10,12 @@
       </div>
       <div class="field">
         <p class="control has-icons-left">
-          <textarea v-model="body" class="input" placeholder="Write Your Content Here" />
+          <textarea v-model="body" class="textarea" placeholder="Write Your Content Here" />
         </p>
         <div class="error" v-if="!$v.body.required && submitStatus">Body is required</div>
+      </div>
+      <div class="field">
+        <input type="file" accept="image/*" id="file-input" @change="uploadImage" />
       </div>
       <div class="field">
         <p class="control">
@@ -38,6 +41,7 @@ export default {
       title: null,
       body: null,
       userId: null,
+      image: null,
       submitStatus: null,
     };
   },
@@ -62,6 +66,7 @@ export default {
             author: this.userId,
             title: this.title,
             body: this.body,
+            image: this.image,
             votes: 1,
           };
           this.$store.dispatch("postItem", newPost).then(() => {
@@ -70,6 +75,9 @@ export default {
           });
         });
       }
+    },
+    uploadImage(e) {
+      this.image = e.target.files[0];
     },
   },
 };

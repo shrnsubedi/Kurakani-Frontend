@@ -1,36 +1,38 @@
 <template>
-  <div style="display:flex; width:100%">
-    <figure class="media-left">
-      <img class="image is-64x64" src />
-    </figure>
+  <div class="container is-fluid box" style="width:100%">
+    <div style="display:flex; width:100%">
+      <figure class="media-left">
+        <img class="image is-64x64" :src="post.image" />
+      </figure>
 
-    <div class="media-content">
-      <div class="content">
-        <p>
-          <strong>
-            <router-link :to="'/posts/' + post.id" class="has-text-info">
-              {{
-              post.title
-              }}
-            </router-link>
-            <span class="tag is-small">#{{ post.id }}</span>
-          </strong>
-          <br />
-          {{ post.body }}
-          <br />
-          <small class="is-size-7">
-            Submitted by:
-            {{ post.author }}
-          </small>
-        </p>
+      <div class="media-content">
+        <div class="content">
+          <p>
+            <strong>
+              <router-link :to="'/posts/' + post.id" class="has-text-info">
+                {{
+                post.title
+                }}
+              </router-link>
+              <span class="tag is-small">#{{ post.id }}</span>
+            </strong>
+            <br />
+            {{ post.body }}
+            <br />
+            <small class="is-size-7">
+              Submitted by:
+              {{ post.author }}
+            </small>
+          </p>
+        </div>
       </div>
-    </div>
 
-    <div class="media-right">
-      <span @click="upvotePost(post)" class="icon is-small">
-        <i class="fa fa-chevron-up"></i>
-        <strong class="has-text-info">{{ post.votes }}</strong>
-      </span>
+      <div class="media-right">
+        <span @click="upvotePost(post)" class="icon is-small">
+          <i class="fa fa-chevron-up"></i>
+          <strong class="has-text-info">{{ post.votes }}</strong>
+        </span>
+      </div>
     </div>
   </div>
 </template>
